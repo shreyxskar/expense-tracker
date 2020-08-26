@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>{% block title_head %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='logo2.ico') }}">
+    </head>
+    <body>
+        
+        {% block modala %}
+        {% endblock %}
+        
+       
+
+
+        <div class="container-fluid">
+            <div class="row">
+
+            
+
+
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark sidebar">-->
+            <a class="navbar-brand" href="{{ url_for('index_page') }}">EXPENSE TRACKER</a>          
+            
+            <div class="sidebar-sticky">
+             <ul class="nav flex-column">
+
+                <li class="nav-item">
+                    <a class="nav-link {% block activea %}{% endblock %}" href="/" role="tab" aria-selected={% block vala %}{% endblock %}>Dashboard</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% block actived %}{% endblock %}" href="/all_expenses" role="tab" aria-selected={% block vald %}{% endblock %}>All Expenses</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% block activeb %}{% endblock %}" href="/add_expense" role="tab" aria-selected={% block valb %}{% endblock %}>Add Expense</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% block activec %}{% endblock %}" href="/manage_expenses" role="tab" aria-selected={% block valc %}{% endblock %}>Manage Expenses</a>
+                </li>
+
+             </ul>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+        <div style="text-align: center;">
+            <h1>
+                {% block top_heading %}
+                {% endblock %}
+                </h1>
+        </div>
+            
+
+        <br>
+        <br>
+
+        <div class="mx-auto" style="width: 70%;">
+            {% block expense_form %}
+            {% endblock %}
+        </div>
+        
+        <div class="success-res">
+            {% if ccx %}
+                {{Done}}
+            {% endif %}
+        </div>
+
+        <div style="width: 70%; margin: auto;">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+    </body>
+</html>

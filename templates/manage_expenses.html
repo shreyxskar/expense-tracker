@@ -1,0 +1,161 @@
+{% extends "base_structure.html" %}
+
+{% block title_head %}
+Manage Expenses
+{% endblock %}
+
+{% block top_heading %}
+Manage Expenses here
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div>        
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;                    
+                            </button>
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>     
+
+        <table class="table table-outline-light table-hover" style="text-align: center;">            
+            
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Date</th>                    
+                    <th scope="col">Description</th>
+                    <th scope="col" colspan="2">Type</th>
+                    <th scope="col">Category</th>    
+                    <th scope="col">Amount</th>   
+                    <th scope="col">Operations</th> 
+                </tr>
+            </thead>
+           
+            {% for ent in docs_c %}
+            <tr>
+                <td>{{ ent.date }}</td>
+                
+                <td>{{ ent.description }}</td>
+                <td>{{ ent.credit }}</td>
+                <td>{{ ent.debit }}</td>
+                <td>{{ ent.category }}</td>
+                <td>{{ ent.transaction_amount }}</td>
+                
+
+
+                               
+                <td>
+                    <a href="/update_expense/{{ ent._id }}" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#updateModal{{ ent._id }}">
+                        Update
+                    </a>
+                    <a href="/delete_expense/{{ent._id}}" class="btn btn-outline-dark btn-sm" onclick="return confirm('Are you sure you want to delete this expense?')">Delete</a>
+                </td>
+            </tr>
+
+
+
+            <div class="modal fade" id="updateModal{{ ent._id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+            
+            
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Expense</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+            
+            
+                    <div class="modal-body">
+                        <form action="/update_expense" method="POST">
+            
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <input type="text" class="form-control" name="ueamount" value="{{ ent.transaction_amount }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" class="form-control" name="uedate" value="{{ ent.date }}">
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect03" name="uecategory" required>
+                                <option value="" selected hidden>Category</option>
+                                {% for cat in cats %}
+                                    {% if cat == ent.category %}
+                                    <option class="" value="{{ cat }}" selected>{{ cat }}</option>   
+                                    {% else %}
+                                    <option class="" value="{{ cat }}">{{ cat }}</option> 
+                                    {% endif %}     
+                                {% endfor %}
+                            </select>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" class="form-control" name="uedescription" value="{{ ent.description }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                {% set check_c = namespace(found='') %}
+                                {% set check_d = namespace(found='') %}
+                                {% if ent.credit == '-' %}
+                                    {% set check_c.found = 'checked' %}
+                                {% endif %}
+                                {% if ent.debit == '-' %}
+                                    {% set check_d.found = 'checked' %}
+                                {% endif %}
+                                <input type="radio" name="uetype" value="CREDIT" {{ check_d.found }}> Credit
+                                <input type="radio" name="uetype" value="DEBIT" {{ check_c.found }}> Debit
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="expense_id" value="{{ ent._id }}">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-secondary">Update</button>
+                            </div>
+            
+                        </form>
+                    </div>
+                    <div class="modal-footer">          
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+              
+              
+                    </div>
+                  </div>
+                </div>
+
+
+            {% endfor %}
+        </table>
+
+    </div>
+
+    
+    
+    
+            
+    </div>
+      
+
+    
+
+
+{% endblock %}
+
+
+{% block modala %}
+
+{% endblock %}
+
+
+{% block activec %}
+active
+{% endblock %}

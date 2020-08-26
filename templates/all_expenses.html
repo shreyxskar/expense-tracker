@@ -1,0 +1,46 @@
+{% extends "base_structure.html" %}
+
+{% block title_head  %}
+All Expenses
+{% endblock %}
+
+{% block top_heading %}
+Your Expenses
+{% endblock %}
+
+{% block content %}
+<table class="table table-bordered table-striped table-hover" style="text-align: center;">
+
+
+    <thead>
+        <tr>
+            <th scope="col">DATE</th>                       
+            <th scope="col">DESCRIPTION</th> 
+            <th scope="col">CATEGORY</th> 
+            <th scope="col" colspan="2">TYPE</th> 
+            <th scope="col">AMOUNT</th>
+        </tr>
+    </thead>
+            
+                      
+                           
+
+            {% for ent in docs_c %}
+            <tr>
+                <td>{{ ent.date }}</td>
+                <td>{{ ent.description }}</td>
+                <td>{{ ent.category }}</td>
+                <td>{{ ent.credit }}</td>
+                <td>{{ ent.debit }}</td>
+                <td>{{ ent.transaction_amount }}</td>
+                
+                
+            </tr>
+            {% endfor %}
+</table>
+
+{% endblock %}
+
+{% block actived %}
+active
+{% endblock %}
