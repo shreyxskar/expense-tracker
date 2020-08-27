@@ -3,6 +3,9 @@
         <title>{% block title_head %}{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='logo2.ico') }}">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        {% block graph_head %}
+        {% endblock %}
     </head>
     <body>
         
@@ -49,11 +52,12 @@
             {% endblock %}
         </div>
         
-        <div class="success-res">
-            {% if ccx %}
-                {{Done}}
-            {% endif %}
+        <div class="graph-container" style="display: flex;" {% block graphvisibility %} {% endblock %}>
+            <div class="graph-area" id="piechart_3d" style="width: 900px; height: 500px;"></div>
+            <div class="top_x_div" id="top_x_div" style="width: 40%;"></div>
         </div>
+        
+        
 
         <div style="width: 70%; margin: auto;">
             {% block content %}
@@ -61,6 +65,7 @@
         </div>
 
         
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

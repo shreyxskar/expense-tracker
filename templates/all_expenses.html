@@ -9,9 +9,8 @@ Your Expenses
 {% endblock %}
 
 {% block content %}
+
 <table class="table table-bordered table-striped table-hover" style="text-align: center;">
-
-
     <thead>
         <tr>
             <th scope="col">DATE</th>                       
@@ -20,10 +19,7 @@ Your Expenses
             <th scope="col" colspan="2">TYPE</th> 
             <th scope="col">AMOUNT</th>
         </tr>
-    </thead>
-            
-                      
-                           
+    </thead>          
 
             {% for ent in docs_c %}
             <tr>
@@ -32,9 +28,7 @@ Your Expenses
                 <td>{{ ent.category }}</td>
                 <td>{{ ent.credit }}</td>
                 <td>{{ ent.debit }}</td>
-                <td>{{ ent.transaction_amount }}</td>
-                
-                
+                <td>{{ ent.transaction_amount }}</td> 
             </tr>
             {% endfor %}
 </table>
@@ -43,4 +37,8 @@ Your Expenses
 
 {% block actived %}
 active
+{% endblock %}
+
+{% block graphvisibility %}
+hidden
 {% endblock %}

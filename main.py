@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import datetime
 
 app = Flask(__name__)
 
@@ -11,11 +12,34 @@ connection = MongoClient('localhost', 27017)
 database = connection['test_transact_db']
 collection = database['test_collection_02']
 
-cat_types = ['Bills', 'Entertainment', 'Food', 'Health', 'House', 'Transport', 'Extras']
+cat_types = ['Bills', 'Bonus', 'Entertainment', 'Food', 'Health', 'House', 'Salary', 'Transport', 'Extras']
 
 @app.route('/', methods=['GET'])
 def index_page():
-    return render_template('index_page.html')
+
+    global collection
+    present_month = datetime.date.today().month
+    upper_bound = str(datetime.date(2020, present_month+1, 1))
+    lower_bound = str(datetime.date(2020, present_month, 1))
+
+    res = collection.find({'$and': [{'date': {'$lt': upper_bound}}, {'date': {'$gte': lower_bound}}]})
+
+    
+    records = {'total_expenses': 0, 'debit_sum': 0, 'credit_sum': 0}
+    for c in cat_types:
+        records[c] = 0
+
+    for i in res:
+        records['total_expenses'] += 1        
+        records[str(i['category'])] += float(i['transaction_amount'])
+
+        if i['credit'] == '-': #debit
+            records['debit_sum'] += float(i['transaction_amount'])
+        else: #credit
+            records['credit_sum'] += float(i['transaction_amount'])
+    #print(records)
+
+    return render_template('index_page.html', monthly_records=records)
 
 @app.route('/add_expense', methods=['GET', 'POST'])
 def input_form():

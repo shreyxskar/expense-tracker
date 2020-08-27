@@ -9,10 +9,65 @@ Your Dashboard
 {% endblock %}
 
 {% block content %}
-Click on the options<br>
-on the top PAnel
+
 {% endblock %}
 
 {% block activea %}
 active
+{% endblock %}
+
+{% block graph_head %}
+<script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Category', 'Total amount'],
+        ['Bills',     {{ monthly_records.Bills }}],
+        ['Bonus',      {{ monthly_records.Bonus }}],
+        ['Entertainment', {{ monthly_records.Entertainment }}],
+        ['Food', {{ monthly_records.Food }}],
+        ['Health',   {{ monthly_records.Health }}],
+        ['House',   {{ monthly_records.House }}],
+        ['Salary',    {{ monthly_records.Salary }}],
+        ['Transport',    {{ monthly_records.Transport }}],
+        ['Extras',    {{ monthly_records.Extras }}]
+      ]);
+
+      var options = {
+        title: 'This month stats',        
+        pieHole: 0.4
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+      chart.draw(data, options);
+    }
+  </script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+            ["Type", "Amount expensed"],
+            ["Credit", {{ monthly_records.credit_sum }}],
+            ["Debit", {{ monthly_records.debit_sum }}],        
+        ]);
+
+        var options = {
+            width: 450,
+            legend: { position: 'none' },
+            chart: {
+            title: 'Credit vs Debit',
+            subtitle: 'Expense comparison' },
+            colors: ['#FFA62F'],
+            bar: { groupWidth: "60%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+    };
+  </script>
 {% endblock %}
