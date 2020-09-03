@@ -7,6 +7,13 @@ Add Expense
 {% block expense_form %}
 <div style="width: 50%; margin: auto;">
 <form action="/add_expense" method="POST">
+    <select class="custom-select" id="inputGroupSelect07" name="eaccount" required>
+        <option value="" selected hidden>Select Account</option>
+        {% for cat in accounts %}
+            <option class="" value="{{ cat }}">{{ cat }}</option>        
+        {% endfor %}
+    </select>
+    <br><br>
     <input class="form-control" type="number" name="eamount" id="" step="0.1" min="0" placeholder="Expense Amount" required/> <br>
     <input class="form-control" type="date" name="edate" id="" placeholder="Date" required/> <br>
     <select class="custom-select" id="inputGroupSelect03" name="ecategory" required>
