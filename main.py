@@ -9,15 +9,17 @@ app = Flask(__name__)
 app.secret_key = 'myExpenseApp'
 
 connection = MongoClient('localhost', 27017)
-database = connection['test_transact_db']
-collection = database['test_collection_02']
+#database = connection['test_transact_db']
+#collection = database['test_collection_02']
+database = connection['user_db01']
 
 cat_types = ['Bills', 'Bonus', 'Entertainment', 'Food', 'Health', 'House', 'Salary', 'Transport', 'Extras']
 
 @app.route('/', methods=['GET'])
 def index_page():
 
-    global collection
+    global database
+    collection = database['expenses']
     present_month = datetime.date.today().month
     upper_bound = str(datetime.date(2020, present_month+1, 1))
     lower_bound = str(datetime.date(2020, present_month, 1))
@@ -41,14 +43,27 @@ def index_page():
 
     return render_template('index_page.html', monthly_records=records)
 
+@app.route('/manage_accounts', methods=['GET', 'POST'])
+def manage_accounts():
+    global database
+    collection = database['accounts']
+    if request.method == 'POST':
+        acc_name = request.form['acc_name']
+        collection.insert_one({'account_name': acc_name, 'date_created': datetime.datetime.now()})
+        flash('Account added!')
+        return redirect(url_for('manage_accounts'))
+
+    accounts = collection.find()
+    return render_template('manage_accounts.html', X=accounts)
+
 @app.route('/add_expense', methods=['GET', 'POST'])
 def input_form():
     global cat_types
-    if request.method == "GET":        
-        return render_template('input_form.html', cats=cat_types)
+    global database
 
-    global collection
-    
+    if request.method == "GET":              
+        return render_template('input_form.html', cats=cat_types, accounts=database['accounts'].find().distinct('account_name'))
+           
     data = {}
     data['transaction_amount'] = request.form['eamount']
     data['date'] = request.form['edate']
@@ -61,33 +76,41 @@ def input_form():
         data['debit'] = request.form['etype']     
 
     data['category'] = request.form['ecategory'] 
-    
-    #cc=eamount+edate+edescription+etype
+    data['account'] = request.form['eaccount']
 
+    #cc=eamount+edate+edescription+etype
+    collection = database['expenses']
     collection.insert_one(data)
     flash('Expense added!')
     #print(cc)
-    return render_template('input_form.html', cats=cat_types)
+    return render_template('input_form.html', cats=cat_types, accounts=database['accounts'].find().distinct('account_name'))
 
 @app.route('/all_expenses', methods=['GET'])
 def all_expenses():
-    global collection
-    res = ' '
-    for data in collection.find():
-        res += '<p>' + str(data) + '</p>'
-    return render_template('all_expenses.html', docs_c=collection.find({}).sort('date', -1))
+    global database
+    collection = database['expenses']    
+    return render_template('all_expenses.html', docs_c=collection.find({}).sort('date', -1), accounts=database['accounts'].find().distinct('account_name'))
+
+@app.route('/all_expenses/<account>')
+def all_expenses_filter(account):
+    global database
+    collection = database['expenses']    
+    return render_template('all_expenses.html', docs_c=collection.find({'account': account}).sort('date', -1), accounts=database['accounts'].find().distinct('account_name'))
 
 @app.route('/manage_expenses', methods=['GET', 'POST'])
 def manage_expenses():  
-    global collection    
+    global database 
     global cat_types
+
+    collection = database['expenses']
     return render_template('manage_expenses.html', docs_c=collection.find({}), cats=cat_types)
 
 
 @app.route('/delete_expense/<expense_id>', methods=['POST', 'GET'])
 def delete_expense(expense_id):    
 
-    global collection
+    global database
+    collection = database['expenses']
     query = {'_id': ObjectId(str(expense_id))}
     collection.delete_one(query)
     flash('Expense Deleted!')
@@ -99,7 +122,8 @@ def update_expense():
     if request.method == 'GET':
         return redirect(url_for('index_page'))
     
-    global collection
+    global database
+    collection = database['expenses']
     new_values = {}
     new_values['transaction_amount'] = request.form['ueamount']
     new_values['date'] = request.form['uedate']

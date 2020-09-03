@@ -9,20 +9,34 @@ Your Expenses
 {% endblock %}
 
 {% block content %}
+<div>
 
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by Account
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for acc in accounts %}
+            <a class="dropdown-item" href="/all_expenses/{{ acc }}">{{ acc }}</a>
+            {% endfor %}          
+        </div>
+      </div>
+<br><br>
 <table class="table table-bordered table-striped table-hover" style="text-align: center;">
     <thead>
         <tr>
+            <th scope="col">ACCOUNT</th>
             <th scope="col">DATE</th>                       
             <th scope="col">DESCRIPTION</th> 
             <th scope="col">CATEGORY</th> 
             <th scope="col" colspan="2">TYPE</th> 
-            <th scope="col">AMOUNT</th>
+            <th scope="col">AMOUNT</th>            
         </tr>
     </thead>          
 
             {% for ent in docs_c %}
             <tr>
+                <td>{{ ent.account }}</td>
                 <td>{{ ent.date }}</td>
                 <td>{{ ent.description }}</td>
                 <td>{{ ent.category }}</td>
@@ -33,6 +47,7 @@ Your Expenses
             {% endfor %}
 </table>
 
+</div>
 {% endblock %}
 
 {% block actived %}
