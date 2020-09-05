@@ -5,7 +5,7 @@
         <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='logo2.ico') }}">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         {% block graph_head %}
-        {% endblock %}
+        {% endblock %}        
     </head>
     <body>
         
@@ -17,11 +17,11 @@
              <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link {% block activea %}{% endblock %}" href="/" role="tab" aria-selected={% block vala %}{% endblock %}>Dashboard</a>
+                    <a class="nav-link {% block activea %}{% endblock %}" href="{{ url_for('index_page') }}" role="tab" aria-selected={% block vala %}{% endblock %}>Dashboard</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {% block activee %}{% endblock %}" href="/manage_accounts" role="tab" aria-selected={% block vale %}{% endblock %}>Manage Account</a>
+                    <a class="nav-link {% block activee %}{% endblock %}" href="/manage_accounts" role="tab" aria-selected={% block vale %}{% endblock %}>Manage Accounts</a>
                 </li>
 
                 <li class="nav-item">
@@ -67,6 +67,10 @@
             {% block content %}
             {% endblock %}
         </div>
+            
+        <div class="badge badge-dark page-footer fixed-bottom text-center py-3">
+            Designed & Maintained by <strong>Shreyaskar Srivastava</strong>
+        </div>  
 
         
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

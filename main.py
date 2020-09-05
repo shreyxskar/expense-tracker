@@ -16,13 +16,23 @@ database = connection['user_db01']
 cat_types = ['Bills', 'Bonus', 'Entertainment', 'Food', 'Health', 'House', 'Salary', 'Transport', 'Extras']
 
 @app.route('/', methods=['GET'])
+def index():
+    return '<p>TODO</p><a href=\"' + url_for('index_page') + '\">Click here </a>'
+
+@app.route('/dashboard', methods=['GET'])
 def index_page():
 
+    user_month=None
     global database
     collection = database['expenses']
-    present_month = datetime.date.today().month
+    if not user_month:
+        present_month = datetime.date.today().month
+    else:
+        present_month = int(user_month)
     upper_bound = str(datetime.date(2020, present_month+1, 1))
     lower_bound = str(datetime.date(2020, present_month, 1))
+
+    print(f'Upper>>{upper_bound}\tLower>>{lower_bound}\tUSerMonth>>{user_month}')
 
     res = collection.find({'$and': [{'date': {'$lt': upper_bound}}, {'date': {'$gte': lower_bound}}]})
 
@@ -40,8 +50,14 @@ def index_page():
         else: #credit
             records['credit_sum'] += float(i['transaction_amount'])
     #print(records)
+#{ "$expr": { "$eq": [{ "$month": "$bday" }, 9] } }           {'$and': [{'date': {'': }}, {'date': {'': }}]}
+    return render_template('index_page.html', monthly_records=records)#, months=collection.find({ "$expr": { "$eq": [{ "$month": "$date" }, 9] } }))
 
-    return render_template('index_page.html', monthly_records=records)
+'''
+@app.route('/dashboard/<user_month>')
+def index_page_filter(user_month):
+    return redirect(url_for('index_page', user_month=user_month))
+'''
 
 @app.route('/manage_accounts', methods=['GET', 'POST'])
 def manage_accounts():
