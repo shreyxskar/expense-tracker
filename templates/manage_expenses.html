@@ -33,11 +33,12 @@ hidden
             
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Date</th>                    
-                    <th scope="col">Description</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Account</th>   
+                    <th scope="col">Category</th>  
+                    <th scope="col">Amount</th>                     
                     <th scope="col" colspan="2">Type</th>
-                    <th scope="col">Category</th>    
-                    <th scope="col">Amount</th>   
+                    <th scope="col">Description</th>                       
                     <th scope="col">Operations</th> 
                 </tr>
             </thead>
@@ -45,16 +46,13 @@ hidden
             {% for ent in docs_c %}
             <tr>
                 <td>{{ ent.date }}</td>
-                
-                <td>{{ ent.description }}</td>
-                <td>{{ ent.credit }}</td>
-                <td>{{ ent.debit }}</td>
+                <td>{{ ent.account }}</td>
                 <td>{{ ent.category }}</td>
                 <td>{{ ent.transaction_amount }}</td>
+                <td>{{ ent.credit }}</td>
+                <td>{{ ent.debit }}</td>                
+                <td>{{ ent.description }}</td>
                 
-
-
-                               
                 <td>
                     <a href="/update_expense/{{ ent._id }}" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#updateModal{{ ent._id }}">
                         Update

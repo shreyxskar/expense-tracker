@@ -9,7 +9,9 @@ Your Dashboard
 {% endblock %}
 
 {% block content %}
-
+{% for m in months %}
+  <p> {{ m }} </p>
+{% endfor %}
 {% endblock %}
 
 {% block activea %}
@@ -60,7 +62,7 @@ active
             legend: { position: 'none' },
             chart: {
             title: 'Credit vs Debit',
-            subtitle: 'Expense comparison' },
+            subtitle: 'Expense comparison this month' },
             colors: ['#FFA62F'],
             bar: { groupWidth: "60%" }
         };

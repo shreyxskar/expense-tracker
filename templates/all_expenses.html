@@ -13,9 +13,10 @@ Your Expenses
 
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sort by Account
+          View by Account
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/all_expenses">All accounts</a>
             {% for acc in accounts %}
             <a class="dropdown-item" href="/all_expenses/{{ acc }}">{{ acc }}</a>
             {% endfor %}          
@@ -25,24 +26,24 @@ Your Expenses
 <table class="table table-bordered table-striped table-hover" style="text-align: center;">
     <thead>
         <tr>
+            <th scope="col">DATE</th>
             <th scope="col">ACCOUNT</th>
-            <th scope="col">DATE</th>                       
-            <th scope="col">DESCRIPTION</th> 
-            <th scope="col">CATEGORY</th> 
+            <th scope="col">CATEGORY</th>
+            <th scope="col">AMOUNT</th> 
             <th scope="col" colspan="2">TYPE</th> 
-            <th scope="col">AMOUNT</th>            
+            <th scope="col">DESCRIPTION</th>      
         </tr>
     </thead>          
 
             {% for ent in docs_c %}
             <tr>
-                <td>{{ ent.account }}</td>
                 <td>{{ ent.date }}</td>
-                <td>{{ ent.description }}</td>
+                <td>{{ ent.account }}</td>
                 <td>{{ ent.category }}</td>
+                <td>{{ ent.transaction_amount }}</td>
                 <td>{{ ent.credit }}</td>
                 <td>{{ ent.debit }}</td>
-                <td>{{ ent.transaction_amount }}</td> 
+                <td>{{ ent.description }}</td>
             </tr>
             {% endfor %}
 </table>
