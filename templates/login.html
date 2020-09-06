@@ -1,0 +1,34 @@
+{% extends "base_user.html" %}
+
+{% block title_head %}
+Login Page
+{% endblock %}
+
+{% block top_heading %}
+
+{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-wrap: no-wrap;width: 60%;padding-top: 15%;margin: auto;">
+
+    <div class="signin-form-section" style="margin-top: 15%;width: 50%;border-right: 1px solid black; padding-right: 10%;">
+        <h3><div class="badge badge-dark">Enter credentials to Signin</div></h3>
+        <form action="#">
+            <input class="form-control" type="text" name="username" id="" placeholder="Enter username" required><br>
+            <input class="form-control" type="password" name="password" id="" placeholder="Enter password" required><br>
+            <button type="submit" value="Log in" class="btn btn-light">Sign in</button>
+        </form>
+    </div>
+    <br>
+    <div class="signup-form-section" style="margin-top: 15%; width: 50%;border-left: 1px solid black; padding-left: 10%;">
+        <h3><div class="badge badge-secondary">New user? Create a new account</div></h3>
+        <form action="#">
+            <input class="form-control" type="text" name="username" id="" placeholder="Enter unique username" required><br>
+            <input class="form-control" type="password" name="password" id="" placeholder="Enter unique password" required><br>
+            <button type="submit" value="" class="btn btn-light">Sign up</button>
+            <button type="reset" value="" class="btn btn-secondary">Reset</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

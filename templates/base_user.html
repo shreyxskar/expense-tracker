@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>{% block title_head %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='logo2.ico') }}">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        {% block graph_head %}
+        {% endblock %}        
+    </head>
+    <body>        
+        
+        <div class="badge badge-dark fixed-top text-center py-3">
+            <img src="{{ url_for('static', filename='logo2.ico') }}" alt="">
+            <br>
+            <a style="color: azure;font-size: larger;" href="{{ url_for('index_page') }}">EXPENSE TRACKER</a> 
+        </div>
+
+        <div style="text-align: center;">
+            <h1>
+                {% block top_heading %}
+                {% endblock %}
+            </h1>
+        </div>           
+
+        <div style="width: 70%; margin: auto;">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <br>
+        <br>
+
+        <div class="badge badge-dark page-footer fixed-bottom text-center py-3">
+            Designed & Maintained by <strong>Shreyaskar Srivastava</strong>
+        </div> 
+        
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>

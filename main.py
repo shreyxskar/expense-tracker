@@ -16,7 +16,8 @@ cat_types = ['Bills', 'Bonus', 'Entertainment', 'Food', 'Health', 'House', 'Sala
 @app.route('/', methods=['GET'])
 def index():
 
-    return '<p>TODO</p><a href=\"' + url_for('index_page') + '\">Click here </a>'
+    #return '<p>TODO</p><a href=\"' + url_for('index_page') + '\">Click here </a>'
+    return render_template('login.html')
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
