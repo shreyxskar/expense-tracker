@@ -9,9 +9,30 @@ Your Dashboard
 {% endblock %}
 
 {% block content %}
-{% for m in months %}
-  <p> {{ m }} </p>
-{% endfor %}
+
+<div class="badge-white text-wrap">
+  
+   
+  <form action="{{ url_for('index_page') }}" method="POST">
+    <div class="badge badge-white text-wrap">Want stats for another month?</div>
+    <br>
+    <select class="badge badge-light" name="mm" id="" required>
+      <option value="" selected hidden>Month</option>
+      {% for m in months %}
+        <option value="{{ m.sno }}">{{ m.month }}</option>
+      {% endfor %}
+    </select>
+    <select class="badge badge-light" name="yy" id="" required>
+      <option value="" selected hidden>Year</option>
+      {% for m in years %}
+        <option value="{{ m }}">{{ m }}</option>
+      {% endfor %}
+    </select>
+    
+    <button class="btn btn-sm btn-secondary text-center" type="submit">GO</button>
+  </form>
+</div>
+
 {% endblock %}
 
 {% block activea %}

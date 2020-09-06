@@ -19,24 +19,40 @@ cat_types = ['Bills', 'Bonus', 'Entertainment', 'Food', 'Health', 'House', 'Sala
 def index():
     return '<p>TODO</p><a href=\"' + url_for('index_page') + '\">Click here </a>'
 
-@app.route('/dashboard', methods=['GET'])
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+#@app.route('/dashboard/<user_month>', methods=['GET', 'POST'])
 def index_page():
 
-    user_month=None
+    #user_month=8
     global database
     collection = database['expenses']
-    if not user_month:
-        present_month = datetime.date.today().month
-    else:
-        present_month = int(user_month)
-    upper_bound = str(datetime.date(2020, present_month+1, 1))
-    lower_bound = str(datetime.date(2020, present_month, 1))
 
-    print(f'Upper>>{upper_bound}\tLower>>{lower_bound}\tUSerMonth>>{user_month}')
+    if request.method == 'POST':
+        month = int(request.form['mm'])
+        year = int(request.form['yy'])        
+    else:
+        month = datetime.date.today().month
+        year = 2020
+
+    upper_bound = str(datetime.date(year, month+1, 1))
+    lower_bound = str(datetime.date(year, month, 1))
+
+    #print(f'Upper>>{upper_bound}\tLower>>{lower_bound}\tUSerMonth>>{user_month}')
 
     res = collection.find({'$and': [{'date': {'$lt': upper_bound}}, {'date': {'$gte': lower_bound}}]})
 
-    
+    month_list, year_list = [], []
+    for i in range(12):
+        mn = {}
+        mn['month'] = datetime.date(year, i+1, 1).strftime('%B')
+        mn['sno'] = i+1
+        month_list.append(mn)
+
+    n = datetime.date.today().year
+    for i in range(n-5, n+6):
+        year_list.append(i)
+
     records = {'total_expenses': 0, 'debit_sum': 0, 'credit_sum': 0}
     for c in cat_types:
         records[c] = 0
@@ -51,10 +67,10 @@ def index_page():
             records['credit_sum'] += float(i['transaction_amount'])
     #print(records)
 #{ "$expr": { "$eq": [{ "$month": "$bday" }, 9] } }           {'$and': [{'date': {'': }}, {'date': {'': }}]}
-    return render_template('index_page.html', monthly_records=records)#, months=collection.find({ "$expr": { "$eq": [{ "$month": "$date" }, 9] } }))
+    return render_template('index_page.html', monthly_records=records, months=month_list, years=year_list)#, months=collection.find({ "$expr": { "$eq": [{ "$month": "$date" }, 9] } }))
+
 
 '''
-@app.route('/dashboard/<user_month>')
 def index_page_filter(user_month):
     return redirect(url_for('index_page', user_month=user_month))
 '''
