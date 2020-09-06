@@ -21,32 +21,31 @@ Your Expenses
             <a class="dropdown-item" href="/all_expenses/{{ acc }}">{{ acc }}</a>
             {% endfor %}          
         </div>
-      </div>
-<br><br>
-<table class="table table-bordered table-striped table-hover" style="text-align: center;">
-    <thead>
-        <tr>
-            <th scope="col">DATE</th>
-            <th scope="col">ACCOUNT</th>
-            <th scope="col">CATEGORY</th>
-            <th scope="col">AMOUNT</th> 
-            <th scope="col" colspan="2">TYPE</th> 
-            <th scope="col">DESCRIPTION</th>      
-        </tr>
-    </thead>          
-
-            {% for ent in docs_c %}
+    </div>
+    <br><br>
+    <table class="table table-bordered table-striped table-hover" style="text-align: center;">
+        <thead>
             <tr>
-                <td>{{ ent.date }}</td>
-                <td>{{ ent.account }}</td>
-                <td>{{ ent.category }}</td>
-                <td>{{ ent.transaction_amount }}</td>
-                <td>{{ ent.credit }}</td>
-                <td>{{ ent.debit }}</td>
-                <td>{{ ent.description }}</td>
+                <th scope="col">DATE</th>
+                <th scope="col">ACCOUNT</th>
+                <th scope="col">CATEGORY</th>
+                <th scope="col">AMOUNT</th> 
+                <th scope="col" colspan="2">TYPE</th> 
+                <th scope="col">DESCRIPTION</th>      
             </tr>
-            {% endfor %}
-</table>
+        </thead>   
+        {% for ent in docs_c %}
+        <tr>
+            <td>{{ ent.date }}</td>
+            <td>{{ ent.account }}</td>
+            <td>{{ ent.category }}</td>
+            <td>{{ ent.transaction_amount }}</td>
+            <td>{{ ent.credit }}</td>
+            <td>{{ ent.debit }}</td>
+            <td>{{ ent.description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 </div>
 {% endblock %}

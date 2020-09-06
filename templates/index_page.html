@@ -11,8 +11,6 @@ Your Dashboard
 {% block content %}
 
 <div class="badge-white text-wrap">
-  
-   
   <form action="{{ url_for('index_page') }}" method="POST">
     <div class="badge badge-white text-wrap">Want stats for another month?</div>
     <br>
@@ -27,8 +25,7 @@ Your Dashboard
       {% for m in years %}
         <option value="{{ m }}">{{ m }}</option>
       {% endfor %}
-    </select>
-    
+    </select>    
     <button class="btn btn-sm btn-secondary text-center" type="submit">GO</button>
   </form>
 </div>
