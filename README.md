@@ -5,9 +5,12 @@
 
 ## Features
 
+- [x] User-login system along with new account creation
+- [x] Multiple accounts handling
+- [x] Sort All Expenses by Account
 - [x] Add Expenses
 - [x] Delete Expenses
-- [x] List all Expenses
+- [x] List all Expenses 
 - [x] Update Expenses
 
 ## Script execution
