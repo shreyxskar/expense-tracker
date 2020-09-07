@@ -6,6 +6,9 @@ Add Expense
 
 {% block expense_form %}
 <div style="width: 50%; margin: auto;">
+    <p>
+        <em>Please make sure you have atleast one account before adding an expense. To create a new account go to <strong>Manage Accounts</strong> Tab</em>
+    </p>
 <form action="/add_expense" method="POST">
     <select class="custom-select" id="inputGroupSelect07" name="eaccount" required>
         <option value="" selected hidden>Select Account</option>
@@ -24,14 +27,15 @@ Add Expense
     </select> 
     <br><br>
     <input class="form-control" type="text" name="edescription" id="" placeholder="Description" /> <br>
-    <input class="form-control-input" type="radio" name="etype" id="" value="CREDIT" name="CREDIT"/> <label class="form-check-label" for="inlineRadio1">Credit</label>
-    <input class="form-control-input" type="radio" name="etype" id="" value="DEBIT" name="DEBIT"/> <label class="form-check-label" for="inlineRadio1">Debit</label> 
+    <input class="form-control-input" type="radio" name="etype" id="" value="CREDIT" name="CREDIT" required/> <label class="form-check-label" for="inlineRadio1">Credit</label>
+    <input class="form-control-input" type="radio" name="etype" id="" value="DEBIT" name="DEBIT" required/> <label class="form-check-label" for="inlineRadio1">Debit</label> 
     <br> <br>
     <input class="btn btn-secondary" type="submit" value="Add">
     <input class="btn btn-secondary" type="reset" value="Clear">
 </form>
 
 <br>
+</div>
 
 <div>
     {% with messages = get_flashed_messages() %}
@@ -46,7 +50,7 @@ Add Expense
     {% endif %}
     {% endwith %}
 </div>
-</div>
+
 {% endblock %}
 
 {% block top_heading %}

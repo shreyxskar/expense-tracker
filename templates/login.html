@@ -13,22 +13,38 @@ Login Page
 
     <div class="signin-form-section" style="margin-top: 15%;width: 50%;border-right: 1px solid black; padding-right: 10%;">
         <h3><div class="badge badge-dark">Enter credentials to Signin</div></h3>
-        <form action="#">
-            <input class="form-control" type="text" name="username" id="" placeholder="Enter username" required><br>
-            <input class="form-control" type="password" name="password" id="" placeholder="Enter password" required><br>
+        <form action="{{ url_for('signin_user') }}" method="POST">
+            <input class="form-control" type="text" name="username" id="" placeholder="Enter Username" required><br>
+            <input class="form-control" type="password" name="password" id="" placeholder="Enter Password" required><br>
             <button type="submit" value="Log in" class="btn btn-light">Sign in</button>
         </form>
     </div>
     <br>
     <div class="signup-form-section" style="margin-top: 15%; width: 50%;border-left: 1px solid black; padding-left: 10%;">
         <h3><div class="badge badge-secondary">New user? Create a new account</div></h3>
-        <form action="#">
-            <input class="form-control" type="text" name="username" id="" placeholder="Enter unique username" required><br>
-            <input class="form-control" type="password" name="password" id="" placeholder="Enter unique password" required><br>
+        <form action="{{ url_for('signup_user') }}" method="POST">
+            <input class="form-control" type="text" name="firstname" id="" placeholder="Enter your Name" required><br>
+            <input class="form-control" type="text" name="username" id="" placeholder="Enter unique Username" required><br>
+            <input class="form-control" type="password" name="password" id="" placeholder="Enter unique Password" required><br>
             <button type="submit" value="" class="btn btn-light">Sign up</button>
             <button type="reset" value="" class="btn btn-secondary">Reset</button>
         </form>
     </div>
 
 </div>
+
+    <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;                    
+                    </button>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
 {% endblock %}
