@@ -3,6 +3,7 @@ import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import datetime
+import bcrypt
 
 app = Flask(__name__)
 
@@ -19,8 +20,10 @@ def signup_user():
 
     global database
 
-    username = request.form['username']
-    password = request.form['password']
+    salt = bcrypt.gensalt()
+
+    username = request.form['username'].strip()
+    password = bcrypt.hashpw(request.form['password'].strip().encode('utf-8'), salt)
     fname = request.form['firstname']
 
     user_data = database['users']
@@ -38,10 +41,12 @@ def signin_user():
 
     global database
 
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form['username'].strip()
+    password = request.form['password'].strip()
 
-    if database['users'].find_one({'username': username, 'password': password}):
+    db_user = database['users'].find_one({'username': username})
+
+    if db_user is not None and bcrypt.checkpw(password.encode('utf-8'), db_user['password']):
         session.pop('user', None)
         session['user'] = username
         return redirect(url_for('index_page'))
