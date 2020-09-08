@@ -1,11 +1,11 @@
 # Expense Tracker
 - MongoDB
 - Flask (Python)
-- Bootstrap
+- Bootstrap 4
 
 ## Features
 
-- [x] User-login system along with new account creation
+- [x] User-login system along with new account creation (with encryption)
 - [x] Multiple accounts handling
 - [x] Sort All Expenses by Account
 - [x] Add Expenses
