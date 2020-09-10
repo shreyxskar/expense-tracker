@@ -51,4 +51,20 @@ py main.py
 deactivate
 ```
 
+## Screenshots
 
+<div>
+
+  <img width="380" height="200" src="static/indexpage.png">
+<br>
+  <img width="380" height="200" src="static/dashboard.png">  
+<br> 
+  <img width="380" height="200" src="static/all_expenses.png">
+<br> 
+  <img width="380" height="200" src="static/add_expenses.png">
+<br>  
+  <img width="380" height="200" src="static/manage_accounts.png">
+<br>
+  <img width="380" height="200" src="static/manage_expenses.png">
+
+</div>
