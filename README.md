@@ -68,3 +68,7 @@ deactivate
   <img width="380" height="200" src="static/manage_expenses.png">
 
 </div>
+
+## Recorded Demo Link
+
+https://drive.google.com/file/d/1gjmHEVkSBH5iHyhKQu4P2NmUEW3Q9_Lr/view?usp=sharing
